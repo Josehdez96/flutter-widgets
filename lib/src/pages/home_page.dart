@@ -53,12 +53,5 @@ class HomePage extends StatelessWidget {
         )
       ];
     }
-    
-
-    // return [
-    //   const ListTile( title: Text('Hola')),
-    //   const ListTile( title: Text('Hola')),
-    //   const ListTile( title: Text('Hola')),
-    // ];
   }
 }
