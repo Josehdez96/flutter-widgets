@@ -12,6 +12,6 @@ Map<String, WidgetBuilder> getAppRoutes() {
     'alert': ( context ) => const AlertPage(),
     'avatar': ( context ) => const AvatarPage(),
     'card': ( context ) => const CardPage(),
-    'list': ( context ) => const SliderPage()
+    'slider': ( context ) => const SliderPage()
   };
 }

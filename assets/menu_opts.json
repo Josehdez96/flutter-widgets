@@ -17,8 +17,8 @@
             "texto": "Cards - Tarjetas"
         },
         {
-            "ruta" : "list",
-            "icon" : "list",
+            "ruta" : "slider",
+            "icon" : "tune",
             "texto": "Sliders"
         }
     ]
