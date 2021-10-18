@@ -9,6 +9,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _sliderValue = 150.0;
+  bool _blockCheck = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,8 @@ class _SliderPageState extends State<SliderPage> {
         children: [
           const SizedBox(height: 50),
           _createSlider(),
+          _createCheckbox(),
+          _createSwitch(),
           Expanded(child: _createImage())
         ],
       ),
@@ -31,9 +34,11 @@ class _SliderPageState extends State<SliderPage> {
       value: _sliderValue,
       min: 50.0,
       max: 1000.0,
-      onChanged: ( value ) => setState(() {
-        _sliderValue = value;
-      }),
+      onChanged: (!_blockCheck)
+        ? null 
+        : ( value ) => setState(() {
+          _sliderValue = value;
+        }),
       activeColor: Colors.indigoAccent,
       label: 'Elije un rango',
       divisions: 30,
@@ -44,6 +49,40 @@ class _SliderPageState extends State<SliderPage> {
     return Image(
       image: const NetworkImage('https://circleoflight.ie/wp-content/uploads/2020/05/orange_circle_opt.png'),
       width: _sliderValue,
+    );
+  }
+
+  Widget _createCheckbox() {
+    // return Checkbox(
+    //   value: _blockCheck,
+    //   onChanged: (state) => setState(() {
+    //     _blockCheck = state!;
+    //   })
+    // );
+
+    return CheckboxListTile(
+      title: const Text('Bloquear slider'),
+      value: _blockCheck,
+      onChanged: (state) => setState(() {
+        _blockCheck = state!;
+      })
+    );
+  }
+
+  Widget _createSwitch() {
+    // return Switch(
+    //   value: _blockCheck,
+    //   onChanged: (state) => setState(() {
+    //     _blockCheck = state;
+    //   })
+    // );
+
+    return SwitchListTile(
+      title: const Text('Bloquear con switch'),
+      value: _blockCheck,
+      onChanged: (state) => setState(() {
+        _blockCheck = state;
+      })
     );
   }
 }
