@@ -23,7 +23,6 @@ class _ListPageState extends State<ListPage> {
     _addTenMoreImages();
 
     _scrollController.addListener(() {
-
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         fetchData();
       }
@@ -47,18 +46,21 @@ class _ListPageState extends State<ListPage> {
   }
 
   Widget _createList() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _numberList.length,
-      itemBuilder: ( context, index) {
-
-        final imgIndex = _numberList[index];
-
-        return FadeInImage(
-          placeholder: const AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://picsum.photos/500/300/?image=$imgIndex'),
-        );
-      },
+    return RefreshIndicator(
+      onRefresh: getPage1,
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: _numberList.length,
+        itemBuilder: ( context, index) {
+    
+          final imgIndex = _numberList[index];
+    
+          return FadeInImage(
+            placeholder: const AssetImage('assets/jar-loading.gif'),
+            image: NetworkImage('https://picsum.photos/500/300/?image=$imgIndex'),
+          );
+        },
+      ),
     );
   }
 
@@ -85,11 +87,23 @@ class _ListPageState extends State<ListPage> {
     for (var i = 0; i < 10; i++) {
       _numberList.add(_finalItem++);
     }
-
     setState(() { });
   }
 
-  Future fetchData() async {
+  Future<void> getPage1() async {
+    Timer(
+      const Duration(seconds: 2),
+      () {
+        _numberList.clear();
+        _finalItem++;
+        _addTenMoreImages();
+      }
+    );
+
+    return Future.delayed(const Duration(seconds: 2));
+  }
+
+  Future<Timer> fetchData() async {
     _isLoading = true;
     setState(() { });
     return Timer(
